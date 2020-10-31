@@ -1,0 +1,18 @@
+/Users/admin/Documents/Personal/Web Development/BitCube Internship/C#/csharp-starter/CSharp.Domain/bin/Debug/netcoreapp3.1/CSharp.Domain.deps.json
+/Users/admin/Documents/Personal/Web Development/BitCube Internship/C#/csharp-starter/CSharp.Domain/bin/Debug/netcoreapp3.1/CSharp.Domain.dll
+/Users/admin/Documents/Personal/Web Development/BitCube Internship/C#/csharp-starter/CSharp.Domain/bin/Debug/netcoreapp3.1/CSharp.Domain.pdb
+/Users/admin/Documents/Personal/Web Development/BitCube Internship/C#/csharp-starter/CSharp.Domain/obj/Debug/netcoreapp3.1/CSharp.Domain.AssemblyInfoInputs.cache
+/Users/admin/Documents/Personal/Web Development/BitCube Internship/C#/csharp-starter/CSharp.Domain/obj/Debug/netcoreapp3.1/CSharp.Domain.AssemblyInfo.cs
+/Users/admin/Documents/Personal/Web Development/BitCube Internship/C#/csharp-starter/CSharp.Domain/obj/Debug/netcoreapp3.1/CSharp.Domain.csproj.CoreCompileInputs.cache
+/Users/admin/Documents/Personal/Web Development/BitCube Internship/C#/csharp-starter/CSharp.Domain/obj/Debug/netcoreapp3.1/CSharp.Domain.dll
+/Users/admin/Documents/Personal/Web Development/BitCube Internship/C#/csharp-starter/CSharp.Domain/obj/Debug/netcoreapp3.1/CSharp.Domain.pdb
+/Users/admin/Documents/Personal/Web Development/BitCube Internship/C#/csharp-starter/CSharp.Domain/obj/Debug/netcoreapp3.1/CSharp.Domain.csprojAssemblyReference.cache
+/Users/admin/Documents/Personal/Web Development/BitCube Internship/Fullstack Project/Fullstack_Back/CSharp.Domain/bin/Debug/netcoreapp3.1/CSharp.Domain.deps.json
+/Users/admin/Documents/Personal/Web Development/BitCube Internship/Fullstack Project/Fullstack_Back/CSharp.Domain/bin/Debug/netcoreapp3.1/CSharp.Domain.dll
+/Users/admin/Documents/Personal/Web Development/BitCube Internship/Fullstack Project/Fullstack_Back/CSharp.Domain/bin/Debug/netcoreapp3.1/CSharp.Domain.pdb
+/Users/admin/Documents/Personal/Web Development/BitCube Internship/Fullstack Project/Fullstack_Back/CSharp.Domain/obj/Debug/netcoreapp3.1/CSharp.Domain.csprojAssemblyReference.cache
+/Users/admin/Documents/Personal/Web Development/BitCube Internship/Fullstack Project/Fullstack_Back/CSharp.Domain/obj/Debug/netcoreapp3.1/CSharp.Domain.AssemblyInfoInputs.cache
+/Users/admin/Documents/Personal/Web Development/BitCube Internship/Fullstack Project/Fullstack_Back/CSharp.Domain/obj/Debug/netcoreapp3.1/CSharp.Domain.AssemblyInfo.cs
+/Users/admin/Documents/Personal/Web Development/BitCube Internship/Fullstack Project/Fullstack_Back/CSharp.Domain/obj/Debug/netcoreapp3.1/CSharp.Domain.csproj.CoreCompileInputs.cache
+/Users/admin/Documents/Personal/Web Development/BitCube Internship/Fullstack Project/Fullstack_Back/CSharp.Domain/obj/Debug/netcoreapp3.1/CSharp.Domain.dll
+/Users/admin/Documents/Personal/Web Development/BitCube Internship/Fullstack Project/Fullstack_Back/CSharp.Domain/obj/Debug/netcoreapp3.1/CSharp.Domain.pdb
