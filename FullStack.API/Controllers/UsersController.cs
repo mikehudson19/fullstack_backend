@@ -19,16 +19,16 @@ namespace FullStack.API.Controllers
             _userService = userService;
         }
 
-        //[HttpPost("authenticate")]
-        //public IActionResult Authenticate(AuthenticateRequest model)
-        //{
-        //    var response = _userService.Authenticate(model);
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate(AuthenticateRequest model)
+        {
+            var response = _userService.Authenticate(model);
 
-        //    if (response == null)
-        //        return BadRequest(new { message = "Username or password is incorrect" });
+            if (response == null)
+                return BadRequest(new { message = "Username or password is incorrect" });
 
-        //    return Ok(response);
-        //}
+            return Ok(response);
+        }
 
         //[Authorize]
         [HttpGet]

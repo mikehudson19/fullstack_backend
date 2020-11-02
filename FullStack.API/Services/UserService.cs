@@ -15,7 +15,7 @@ namespace FullStack.API.Services
 {
     public interface IUserService
     {
-        //AuthenticateResponse Authenticate(AuthenticateRequest model);
+        AuthenticateResponse Authenticate(AuthenticateRequest model);
         IEnumerable<UserModel> GetAll();
         UserModel GetById(int id);
         User MapToUserEntity(UserForCreationModel user);
@@ -34,27 +34,27 @@ namespace FullStack.API.Services
             this._appSettings = appSettings.Value;
         }
 
-        //public AuthenticateResponse Authenticate(AuthenticateRequest model)
-        //{
-        //    //Get the user from the repository / database
-            
-        //    //*** Note about password. Never save clear text passwords in a database, for this test project it's ok, but change this before you show this project
-        //    //to a potential employer ***
+        public AuthenticateResponse Authenticate(AuthenticateRequest model)
+        {
+            //Get the user from the repository / database
 
-        //    var user = _repo.GetUsers().SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
-            
-        //    // return null if user not found
-        //    if (user == null) return null;
+            //*** Note about password. Never save clear text passwords in a database, for this test project it's ok, but change this before you show this project
+            //to a potential employer ***
 
-        //    //map from DB entity to UserModel for the front-end
-        //    var userModel = MapToModel(user);
+            var user = _repo.GetUsers().SingleOrDefault(x => x.Email == model.Email && x.Password == model.Password);
 
-        //    // authentication successful so generate jwt token
-        //    var token = GenerateJwtToken(userModel);
+            // return null if user not found
+            if (user == null) return null;
 
-        //    //return the UserModel to the controller, NOT the entity
-        //    return new AuthenticateResponse(userModel, token);
-        //}
+            // map from DB entity to UserModel for the front-end
+            var userModel = MapToModel(user);
+
+            // authentication successful so generate jwt token
+            var token = GenerateJwtToken(userModel);
+
+            // return the UserModel to the controller, NOT the entity
+            return new AuthenticateResponse(userModel, token);
+        }
 
         public IEnumerable<UserModel> GetAll()
         {
@@ -104,19 +104,19 @@ namespace FullStack.API.Services
         }
 
 
-        //private string GenerateJwtToken(UserModel user)
-        //{
-        //    // generate token that is valid for 7 days
-        //    var tokenHandler = new JwtSecurityTokenHandler();
-        //    var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-        //    var tokenDescriptor = new SecurityTokenDescriptor
-        //    {
-        //        Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
-        //        Expires = DateTime.UtcNow.AddDays(7),
-        //        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        //    };
-        //    var token = tokenHandler.CreateToken(tokenDescriptor);
-        //    return tokenHandler.WriteToken(token);
-        //}
+        private string GenerateJwtToken(UserModel user)
+        {
+            // generate token that is valid for 7 days
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
     }
 }
