@@ -61,11 +61,11 @@ namespace FullStack.Data
 
         public void DeleteUser(int id)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
 
-            //var entity = _ctx.Users.Find(noteId);
-            //_ctx.Users.Remove(entity); //CAREFULL!! here when you copy and paste, change _ctx.Users to the new DBSet
-            //_ctx.SaveChanges();
+            var entity = _ctx.Users.Find(id);
+            _ctx.Users.Remove(entity); //CAREFULL!! here when you copy and paste, change _ctx.Users to the new DBSet
+            _ctx.SaveChanges();
         }
         #endregion
 

@@ -63,19 +63,21 @@ namespace FullStack.API.Controllers
         [HttpPost]
         public ActionResult<UserModel> CreateUser(UserForCreationModel user)
         {
-
-            var mappedUser = _userService.MapToUserEntity(user);
-
-            var createdUser = _userService.CreateUser(mappedUser);
-
-            var userToReturn = _userService.MapToModel(mappedUser);
+            var createdUser = _userService.CreateUser(user);
 
             return CreatedAtRoute("GetUser",
                                   new
                                   {
                                       id = createdUser.Id
                                   },
-                                  userToReturn);
+                                  createdUser);
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteUser(int id)
+        {
+            _userService.DeleteUser(id);
+            return Ok();
         }
     }
 }

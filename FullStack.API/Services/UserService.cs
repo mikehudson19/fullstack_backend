@@ -19,8 +19,9 @@ namespace FullStack.API.Services
         IEnumerable<UserModel> GetAll();
         UserModel GetById(int id);
         User MapToUserEntity(UserForCreationModel user);
-        User CreateUser(User user);
+        UserModel CreateUser(UserForCreationModel user);
         UserModel MapToModel(User user);
+        void DeleteUser(int id);
     }
 
     public class UserService : IUserService
@@ -96,10 +97,12 @@ namespace FullStack.API.Services
             };
         }
 
-        public User CreateUser(User user)
+        public UserModel CreateUser(UserForCreationModel user)
         {
-            var createdUser = _repo.CreateUser(user);
-            return createdUser;
+            var mappedUser = MapToUserEntity(user);
+            var createdUser = _repo.CreateUser(mappedUser);
+            var userToReturn = MapToModel(createdUser);
+            return userToReturn;
 
         }
 
@@ -117,6 +120,12 @@ namespace FullStack.API.Services
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+        public void DeleteUser(int id)
+        {
+            _repo.DeleteUser(id);
+            return;
         }
     }
 }
