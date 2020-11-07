@@ -3,7 +3,7 @@ namespace FullStack.ViewModels
 {
     public class AdvertModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Headline { get; set; }
         public string Province { get; set; }
         public string City { get; set; }

@@ -61,7 +61,7 @@ namespace FullStack.API.Services
         {
             //only use for testing
             var userList = _repo.GetUsers();
-            return userList.Select(u => MapToModel(u));
+            return userList.Select(u => MapToModel(u)); 
         }
 
         public UserModel GetById(int id)

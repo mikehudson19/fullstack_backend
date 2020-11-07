@@ -2,13 +2,15 @@
 using FullStack.Data;
 using FullStack.Data.Entities;
 using FullStack.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FullStack.API.Services
 {
     public interface IAdvertService
     {
         //AuthenticateResponse Authenticate(AuthenticateRequest model);
-        //IEnumerable<AdvertModel> GetAll();
+        IEnumerable<AdvertModel> GetAll(int userId);
         AdvertModel GetById(int id);
         Advert MapToAdvertEntity(AdvertForCreationModel advert, int userId);
         AdvertModel CreateAdvert(AdvertForCreationModel advert, int userId);
@@ -23,6 +25,13 @@ namespace FullStack.API.Services
         public AdvertService(IFullStackRepository repo)
         {
             this._repo = repo;
+        }
+
+        public IEnumerable<AdvertModel> GetAll(int userId)
+        {
+            var advertList = _repo.GetAdverts(userId);
+            return advertList.Select(a => MapToModel(a));
+
         }
 
         public AdvertModel GetById(int id)
@@ -59,6 +68,7 @@ namespace FullStack.API.Services
         {
             return new AdvertModel
             {
+                Id = advert.Id,
                 Headline = advert.Headline,
                 Province = advert.Province,
                 City = advert.City,

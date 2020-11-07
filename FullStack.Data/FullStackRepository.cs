@@ -16,7 +16,7 @@ namespace FullStack.Data
         void DeleteUser(int id);
 
         Advert GetAdvert(int id);
-        List<Advert> GetAdverts();
+        List<Advert> GetAdverts(int userId);
         Advert CreateAdvert(Advert advert);
         Advert UpdateAdvert(Advert advert);
         void DeleteAdvert(int id);
@@ -77,10 +77,10 @@ namespace FullStack.Data
 
 
         #region Advert CRUD Methods
-        public List<Advert> GetAdverts()
+        public List<Advert> GetAdverts(int userId)
         {
             //throw new NotImplementedException();
-            return _ctx.Adverts.ToList();
+            return _ctx.Adverts.Where(a => a.UserId == userId).ToList();
         }
 
         public Advert GetAdvert(int id)

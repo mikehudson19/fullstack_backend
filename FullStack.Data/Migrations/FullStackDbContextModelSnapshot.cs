@@ -15,6 +15,38 @@ namespace FullStack.Data.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.9");
 
+            modelBuilder.Entity("FullStack.Data.Entities.Advert", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AdvertDetails")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("City")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Headline")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Province")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Adverts");
+                });
+
             modelBuilder.Entity("FullStack.Data.Entities.User", b =>
                 {
                     b.Property<int>("Id")
