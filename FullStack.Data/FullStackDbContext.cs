@@ -11,6 +11,7 @@ namespace FullStack.Data
     public class FullStackDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Advert> Adverts { get; set; }
 
         public FullStackDbContext(DbContextOptions<FullStackDbContext> options) : base(options)
         {

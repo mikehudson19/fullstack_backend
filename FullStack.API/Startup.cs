@@ -37,6 +37,7 @@ namespace FullStack.API
             services.AddDbContext<FullStackDbContext>(options => options.UseSqlite("Data Source=Database.db"));
             services.AddScoped<IFullStackRepository, FullStackRepository>();
             services.AddScoped<FullStackDbContext>();
+            services.AddTransient<AdvertService>();
 
 
             // configure DI for application services

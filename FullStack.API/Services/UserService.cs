@@ -37,7 +37,7 @@ namespace FullStack.API.Services
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
-            //Get the user from the repository / database
+            // Get the user from the repository / database
 
             //*** Note about password. Never save clear text passwords in a database, for this test project it's ok, but change this before you show this project
             //to a potential employer ***
