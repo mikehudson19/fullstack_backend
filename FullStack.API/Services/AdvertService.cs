@@ -9,13 +9,14 @@ namespace FullStack.API.Services
 {
     public interface IAdvertService
     {
-        //AuthenticateResponse Authenticate(AuthenticateRequest model);
-        IEnumerable<AdvertModel> GetAll(int userId);
+        IEnumerable<AdvertModel> GetUserAdverts(int userId);
         AdvertModel GetById(int id);
-        Advert MapToAdvertEntity(AdvertForCreationModel advert, int userId);
+        void UpdateAdvert(AdvertForCreationModel advert, int userId);
         AdvertModel CreateAdvert(AdvertForCreationModel advert, int userId);
+        Advert MapToAdvertEntity(AdvertForCreationModel advert, int userId, string status);
         AdvertModel MapToModel(Advert advert);
-        //void DeleteAdvert(int id);
+        AdvertForCreationModel MapToCreationModel(AdvertModel advert);
+        Advert ShadowDeleteAdvert(AdvertModel advert, int userId);
     }
 
     public class AdvertService : IAdvertService
@@ -27,11 +28,10 @@ namespace FullStack.API.Services
             this._repo = repo;
         }
 
-        public IEnumerable<AdvertModel> GetAll(int userId)
+        public IEnumerable<AdvertModel> GetUserAdverts(int userId)
         {
-            var advertList = _repo.GetAdverts(userId);
+            var advertList = _repo.GetUserAdverts(userId);
             return advertList.Select(a => MapToModel(a));
-
         }
 
         public AdvertModel GetById(int id)
@@ -44,13 +44,19 @@ namespace FullStack.API.Services
 
         public AdvertModel CreateAdvert(AdvertForCreationModel advert, int userId)
         {
-            var mappedAdvert = MapToAdvertEntity(advert, userId);
+            var mappedAdvert = MapToAdvertEntity(advert, userId, "Live");
             var createdAdvert = _repo.CreateAdvert(mappedAdvert);
             var advertToReturn = MapToModel(createdAdvert);
             return advertToReturn;
         }
 
-        public Advert MapToAdvertEntity(AdvertForCreationModel advert, int userId)
+        public void UpdateAdvert(AdvertForCreationModel advert, int userId)
+        {
+            var mappedAdvert = MapToAdvertEntity(advert, userId, advert.Status);
+            _repo.UpdateAdvert(mappedAdvert);
+        }
+
+        public Advert MapToAdvertEntity(AdvertForCreationModel advert, int userId, string status)
         {
             return new Advert
             {
@@ -59,8 +65,9 @@ namespace FullStack.API.Services
                 City = advert.City,
                 AdvertDetails = advert.AdvertDetails,
                 Price = advert.Price,
-                Status = "Live",
-                UserId = userId
+                Status = status,
+                UserId = userId,
+                Id = advert.Id
             };
         }
 
@@ -73,8 +80,30 @@ namespace FullStack.API.Services
                 Province = advert.Province,
                 City = advert.City,
                 AdvertDetails = advert.AdvertDetails,
-                Price = advert.Price
+                Price = advert.Price,
+                Status = advert.Status
             };
         }
+
+        public AdvertForCreationModel MapToCreationModel(AdvertModel advert)
+        {
+            return new AdvertForCreationModel
+            {
+                Headline = advert.Headline,
+                Province = advert.Province,
+                City = advert.City,
+                AdvertDetails = advert.AdvertDetails,
+                Price = advert.Price,
+                Id = advert.Id
+            };
+        }
+
+        public Advert ShadowDeleteAdvert(AdvertModel advert, int userId)
+        {
+            var advertForDeletion = MapToCreationModel(advert);
+            var mappedAdvert = MapToAdvertEntity(advertForDeletion, userId, "Deleted");
+            var shadowDeletedAdvert = _repo.ShadowDeleteAdvert(mappedAdvert);
+            return shadowDeletedAdvert;
+        }
     }
-}
+}   

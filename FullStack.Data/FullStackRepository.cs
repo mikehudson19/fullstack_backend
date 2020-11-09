@@ -16,8 +16,9 @@ namespace FullStack.Data
         void DeleteUser(int id);
 
         Advert GetAdvert(int id);
-        List<Advert> GetAdverts(int userId);
+        List<Advert> GetUserAdverts(int userId);
         Advert CreateAdvert(Advert advert);
+        Advert ShadowDeleteAdvert(Advert advert);
         Advert UpdateAdvert(Advert advert);
         void DeleteAdvert(int id);
     }
@@ -77,10 +78,10 @@ namespace FullStack.Data
 
 
         #region Advert CRUD Methods
-        public List<Advert> GetAdverts(int userId)
+        public List<Advert> GetUserAdverts(int userId)
         {
             //throw new NotImplementedException();
-            return _ctx.Adverts.Where(a => a.UserId == userId).ToList();
+            return _ctx.Adverts.Where(a => a.UserId == userId).Where(a => a.Status != "Deleted").ToList();
         }
 
         public Advert GetAdvert(int id)
@@ -100,15 +101,30 @@ namespace FullStack.Data
 
         public Advert UpdateAdvert(Advert advert)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
 
-            //var existing = _ctx.Users.SingleOrDefault(em => em.Id == e.Id);
-            //if (existing == null) return null;
+            var existing = _ctx.Adverts.SingleOrDefault(em => em.Id == advert.Id);
+            if (existing == null) return null;
 
-            //_ctx.Entry(existing).State = EntityState.Detached;
-            //_ctx.Users.Attach(e);
-            //_ctx.Entry(e).State = EntityState.Modified;
-            //_ctx.SaveChanges();
+            _ctx.Entry(existing).State = EntityState.Detached;
+            _ctx.Adverts.Attach(advert);
+            _ctx.Entry(advert).State = EntityState.Modified;
+            _ctx.SaveChanges();
+            return advert;
+        }
+
+        public Advert ShadowDeleteAdvert(Advert advert)
+        {
+            //throw new NotImplementedException();
+
+            var existing = _ctx.Adverts.SingleOrDefault(em => em.Id == advert.Id);
+            if (existing == null) return null;
+
+            _ctx.Entry(existing).State = EntityState.Detached;
+            _ctx.Adverts.Attach(advert);
+            _ctx.Entry(advert).State = EntityState.Modified;
+            _ctx.SaveChanges();
+            return advert;
         }
 
         public void DeleteAdvert(int id)

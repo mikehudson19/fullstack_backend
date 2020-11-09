@@ -23,12 +23,13 @@ namespace FullStack.API.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult GetAdverts()
+        public IActionResult GetUserAdverts()
         {
             var authUser = this.HttpContext.Items["User"] as UserModel;
+
             var userId = authUser.Id;
 
-            var adverts = _advertService.GetAll(userId);
+            var adverts = _advertService.GetUserAdverts(userId);
 
             if (adverts == null)
             {
@@ -62,7 +63,43 @@ namespace FullStack.API.Controllers
             var createdAdvert = _advertService.CreateAdvert(advert, userId);
 
             return CreatedAtRoute("GetAdvert", new { id = createdAdvert.Id }, createdAdvert);
+        }
 
+        [Authorize]
+        [HttpPut]
+        [Route("status")]
+        public ActionResult UpdateAdvertStatus(AdvertForCreationModel advert)
+        {
+            var authUser = this.HttpContext.Items["User"] as UserModel;
+
+            _advertService.UpdateAdvert(advert, authUser.Id);
+
+            return NoContent();
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("{id}")]
+        public ActionResult UpdateAdvert(AdvertForCreationModel advert)
+        {
+            var authUser = this.HttpContext.Items["User"] as UserModel;
+
+            _advertService.UpdateAdvert(advert, authUser.Id);
+
+            return NoContent();
+        }
+
+        [Authorize]
+        [HttpPut]
+        public ActionResult ShadowDeleteAdvert(int advertId)
+        {
+            var authUser = this.HttpContext.Items["User"] as UserModel;
+
+            var advert = _advertService.GetById(advertId);
+
+            var deletedAdvert = _advertService.ShadowDeleteAdvert(advert, authUser.Id);
+
+            return NoContent();
         }
     }
 }

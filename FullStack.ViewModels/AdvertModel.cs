@@ -9,5 +9,6 @@ namespace FullStack.ViewModels
         public string City { get; set; }
         public string AdvertDetails { get; set; }
         public decimal Price { get; set; }
+        public string Status { get; set; }
     }
 }
