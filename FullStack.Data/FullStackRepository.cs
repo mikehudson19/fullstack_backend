@@ -142,7 +142,7 @@ namespace FullStack.Data
         #region Location CRUD Methods
         public List<Location> GetLocations()
         {
-            return _ctx.Locations.ToList();
+            return _ctx.Locations.Include(i => i.Cities).ToList();
         }
 
         #endregion
