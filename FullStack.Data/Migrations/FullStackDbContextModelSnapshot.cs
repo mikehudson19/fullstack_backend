@@ -47,6 +47,39 @@ namespace FullStack.Data.Migrations
                     b.ToTable("Adverts");
                 });
 
+            modelBuilder.Entity("FullStack.Data.Entities.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CityName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("LocationId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("Cities");
+                });
+
+            modelBuilder.Entity("FullStack.Data.Entities.Location", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Province")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Locations");
+                });
+
             modelBuilder.Entity("FullStack.Data.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -71,6 +104,15 @@ namespace FullStack.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("FullStack.Data.Entities.City", b =>
+                {
+                    b.HasOne("FullStack.Data.Entities.Location", null)
+                        .WithMany("Cities")
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

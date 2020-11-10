@@ -21,6 +21,8 @@ namespace FullStack.Data
         Advert ShadowDeleteAdvert(Advert advert);
         Advert UpdateAdvert(Advert advert);
         void DeleteAdvert(int id);
+
+        List<Location> GetLocations();
     }
 
     public class FullStackRepository : IFullStackRepository
@@ -137,7 +139,13 @@ namespace FullStack.Data
         }
         #endregion
 
+        #region Location CRUD Methods
+        public List<Location> GetLocations()
+        {
+            return _ctx.Locations.ToList();
+        }
 
+        #endregion
 
     }
 }

@@ -38,6 +38,7 @@ namespace FullStack.API
             services.AddScoped<IFullStackRepository, FullStackRepository>();
             services.AddScoped<FullStackDbContext>();
             services.AddScoped<IAdvertService, AdvertService>();
+            services.AddScoped<ILocationService, LocationService>();
 
 
             // configure DI for application services
