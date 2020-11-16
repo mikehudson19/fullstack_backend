@@ -39,6 +39,20 @@ namespace FullStack.API.Controllers
         }
 
         [HttpGet]
+        [Route("all")]
+        public IActionResult GetAllAdverts()
+        {
+            var adverts = _advertService.GetAllAdverts();
+
+            if (adverts == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(adverts);
+        }
+
+        [HttpGet]
         [Route("{id}", Name = "GetAdvert")]
         public IActionResult GetAdvert(int id)
         {

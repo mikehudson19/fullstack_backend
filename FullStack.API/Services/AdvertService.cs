@@ -10,6 +10,7 @@ namespace FullStack.API.Services
     public interface IAdvertService
     {
         IEnumerable<AdvertModel> GetUserAdverts(int userId);
+        IEnumerable<AdvertModel> GetAllAdverts();
         AdvertModel GetById(int id);
         void UpdateAdvert(AdvertForCreationModel advert, int userId);
         AdvertModel CreateAdvert(AdvertForCreationModel advert, int userId);
@@ -31,6 +32,12 @@ namespace FullStack.API.Services
         public IEnumerable<AdvertModel> GetUserAdverts(int userId)
         {
             var advertList = _repo.GetUserAdverts(userId);
+            return advertList.Select(a => MapToModel(a));
+        }
+
+        public IEnumerable<AdvertModel> GetAllAdverts()
+        {
+            var advertList = _repo.GetAllAdverts();
             return advertList.Select(a => MapToModel(a));
         }
 

@@ -13,3 +13,4 @@ namespace FullStack.Data.Entities
         public int UserId { get; set; }
     }
 }
+  

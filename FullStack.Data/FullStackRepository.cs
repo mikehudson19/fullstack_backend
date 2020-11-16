@@ -17,6 +17,7 @@ namespace FullStack.Data
 
         Advert GetAdvert(int id);
         List<Advert> GetUserAdverts(int userId);
+        List<Advert> GetAllAdverts();
         Advert CreateAdvert(Advert advert);
         Advert ShadowDeleteAdvert(Advert advert);
         Advert UpdateAdvert(Advert advert);
@@ -84,6 +85,11 @@ namespace FullStack.Data
         {
             //throw new NotImplementedException();
             return _ctx.Adverts.Where(a => a.UserId == userId).Where(a => a.Status != "Deleted").ToList();
+        }
+
+        public List<Advert> GetAllAdverts()
+        {
+            return _ctx.Adverts.Where(a => a.Status == "Live").ToList();
         }
 
         public Advert GetAdvert(int id)
