@@ -25,8 +25,7 @@ namespace FullStack.API.Controllers
         {
             var response = _userService.Authenticate(model);
 
-            if (response == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
+            if (response == null) return BadRequest(new { message = "Username or password is incorrect" });
 
             return Ok(response);
         }
@@ -45,6 +44,13 @@ namespace FullStack.API.Controllers
         {
             var users = _userService.GetAll();
             return Ok(users);
+        }
+
+        [HttpGet("auth")]
+        public IActionResult GetAuthUser()
+        {
+            var authUser = this.HttpContext.Items["User"] as UserModel;
+            return Ok(authUser);
         }
 
         [HttpGet]
@@ -72,6 +78,31 @@ namespace FullStack.API.Controllers
                                       id = createdUser.Id
                                   },
                                   createdUser);
+        }
+
+        [Authorize]
+        [HttpPut]
+        public ActionResult UpdateUser(UserForCreationModel user)
+        {
+            var authUser = this.HttpContext.Items["User"] as UserModel;
+
+            _userService.UpdateUser(user, authUser.Id);
+
+            return NoContent();
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("password")]
+        public ActionResult UpdateUserPassword(PasswordModel passwords)
+        {
+            var authUser = this.HttpContext.Items["User"] as UserModel;
+
+            var updatedUser =  _userService.UpdateUserPassword(passwords, authUser.Id);
+
+            if (updatedUser == null) return BadRequest(new { message = "Current password is incorrect and your change was not saved." });
+
+            return NoContent();
         }
 
         [HttpDelete("{id}")]

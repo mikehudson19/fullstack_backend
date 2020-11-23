@@ -9,5 +9,6 @@ namespace FullStack.ViewModels
         public string Email { get; set; }
         public string Password { get; set; }
         public string confirmPass { get; set; }
+        public int? ContactNumber { get; set; }
     }
 }

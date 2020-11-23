@@ -10,5 +10,6 @@ namespace FullStack.ViewModels
         public string Forenames { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
+        public int? ContactNumber { get; set; }
     }
 }

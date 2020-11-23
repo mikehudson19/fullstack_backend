@@ -12,5 +12,6 @@ namespace FullStack.Data.Entities
         public string Email { get; set; }
         public string Password { get; set; }
         public string ConfirmPass { get; set; }
+        public int? ContactNumber { get; set; }
     }
 }

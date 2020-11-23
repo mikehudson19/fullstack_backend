@@ -48,7 +48,8 @@ namespace FullStack.Data.Migrations
                     Surname = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
-                    ConfirmPass = table.Column<string>(nullable: true)
+                    ConfirmPass = table.Column<string>(nullable: true),
+                    ContactNumber = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {

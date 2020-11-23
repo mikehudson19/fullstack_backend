@@ -18,8 +18,10 @@ namespace FullStack.API.Services
         AuthenticateResponse Authenticate(AuthenticateRequest model);
         IEnumerable<UserModel> GetAll();
         UserModel GetById(int id);
-        User MapToUserEntity(UserForCreationModel user);
+        User MapToUserEntity(UserForCreationModel user, int userId);
         UserModel CreateUser(UserForCreationModel user);
+        void UpdateUser(UserForCreationModel user, int userId);
+        User UpdateUserPassword(PasswordModel passwords, int userId);
         UserModel MapToModel(User user);
         void DeleteUser(int id);
     }
@@ -80,20 +82,22 @@ namespace FullStack.API.Services
                 Id = user.Id,
                 Forenames = user.Forenames,
                 Surname = user.Surname,
-                Email = user.Email
+                Email = user.Email,
+                ContactNumber = user.ContactNumber
             };
         }
 
-        public User MapToUserEntity(UserForCreationModel user)
+        public User MapToUserEntity(UserForCreationModel user, int userId=0)
         {
             return new User
             {
-                Id = user.Id,
+                Id = userId,
                 Forenames = user.Forenames,
                 Surname = user.Surname,
                 Email = user.Email,
                 Password = user.Password,
-                ConfirmPass = user.confirmPass
+                ConfirmPass = user.confirmPass,
+                ContactNumber = user.ContactNumber
             };
         }
 
@@ -106,6 +110,36 @@ namespace FullStack.API.Services
 
         }
 
+        public void UpdateUser(UserForCreationModel user, int userId)
+        {
+            var userFromRepo = _repo.GetUser(userId);
+
+            var mappedUser = MapToUserEntity(user, userId);
+
+            mappedUser.Password = userFromRepo.Password;
+            mappedUser.ConfirmPass = userFromRepo.ConfirmPass;
+
+            _repo.UpdateUser(mappedUser);
+            return;
+        }
+
+        public User UpdateUserPassword(PasswordModel passwords, int userId)
+        {
+            var userFromRepo = _repo.GetUser(userId);
+
+            if (userFromRepo.Password != passwords.CurrentPassword)
+            {
+                return null;
+            }
+
+            userFromRepo.Password = passwords.Password;
+            userFromRepo.ConfirmPass = passwords.ConfirmPass;
+
+            var updatedUser = _repo.UpdateUser(userFromRepo);
+
+            return updatedUser;
+
+        }
 
         private string GenerateJwtToken(UserModel user)
         {

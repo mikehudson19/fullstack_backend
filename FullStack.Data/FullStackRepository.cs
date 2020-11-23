@@ -58,15 +58,16 @@ namespace FullStack.Data
 
         public User UpdateUser(User user)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
 
-            //var existing = _ctx.Users.SingleOrDefault(em => em.Id == e.Id);
-            //if (existing == null) return null;
+            var existing = _ctx.Users.SingleOrDefault(em => em.Id == user.Id);
+            if (existing == null) return null;
 
-            //_ctx.Entry(existing).State = EntityState.Detached;
-            //_ctx.Users.Attach(e);
-            //_ctx.Entry(e).State = EntityState.Modified;
-            //_ctx.SaveChanges();
+            _ctx.Entry(existing).State = EntityState.Detached;
+            _ctx.Users.Attach(user);
+            _ctx.Entry(user).State = EntityState.Modified;
+            _ctx.SaveChanges();
+            return user;
         }
 
         public void DeleteUser(int id)
